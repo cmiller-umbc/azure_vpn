@@ -4,27 +4,27 @@ Azure VPN
 
 ## Description
 
-Using https://github.com/cmiller-umbc/subdomain_fuzzer we discovered multiple Microsoft owned web domains that pointed to Azure CDN edge servers that proxy domain fronted traffic.  These findings can be easily recreated by running azure_domainfuzzer.py from that repo and inputing "microsoft.com".  The app has no dependencies and will run on any machine with Python 3 installed.  Microsoft has been informed of these domain fronting capable edge servers that are exposed to the internet and has informed us that they could not recreate our findings.
+Using https://github.com/cmiller-umbc/subdomain_fuzzer we discovered multiple Microsoft owned web domains that pointed to Azure CDN edge servers that successfully proxy domain fronted traffic.  These findings can be easily recreated by running azure_domainfuzzer.py from that repo and inputing "microsoft.com".  The app has no dependencies and will run on any machine with Python 3 installed.  Microsoft has been informed of these domain fronting capable edge servers that are exposed to the internet and has responded that they could not recreate our findings.
 
 The goal of this project is to build a completely open-source and free solution that automatically domain fronts all traffic leaving a given interface on your machine, through an exposed Azure CDN edge server to an Azure hosted Nginx Reverse Proxy that then proxies your traffic to its true destination.  For a better understanding of desired traffic flow, please view the Azure_vpn Process Chart.
 
-This project is currently still in the early stages of development.  As of right now its two authors are myself and ChatGPT who has been more helpful than any youtube video out there about Docker Nginx reverse proxies.  Considering uploading my entire conversation for this project to github as I've also learned alot about how to best get the information you want from ChatGPT.  
+This project is currently still in the early stages of development.  As of right now its two authors are myself and ChatGPT who has been more helpful than just about any youtube video out there when it comes Docker Nginx reverse proxies.  Considering uploading my entire conversation for this project to github as I've also learned alot about how to get the best information possible from ChatGPT.  
 
 Any suggestions and recommendations are welcome!
 
 ### Software Used
 
-Nginx, Docker, Dockerhub, Azure App Services
+Nginx, Docker, Dockerhub, Azure App Services, Python
 
 ### Domain Fronting
 
-As described in the parent research paper "Domain Fronting Through Microsoft Azure and CloudFlare: How to Identify Viable Domain Fronting Proxies" the python app azure_domainfuzzer.py is able to successfully identify multiple microsoft owned domains that point to edge servers that proxy domain fronted traffic to a static web app who's address is hidden in the encrypted HTTP Host header of the packet.  This is done by iteratively using the wget command and fuzzing in the top 1000 most common subdomains from https://github.com/bitquark/dnspop/tree/master/results.
+As described in the parent research paper "Domain Fronting Through Microsoft Azure and CloudFlare: How to Identify Viable Domain Fronting Proxies" the python app azure_domainfuzzer.py is able to successfully identify multiple microsoft owned domains that point to edge servers that will proxy domain fronted traffic to an address hidden in the encrypted HTTP Host header of the packet.  This is done by iteratively using the wget command and fuzzing in the top 1000 most common subdomains from https://github.com/bitquark/dnspop/tree/master/results.
 
 The logical next step in this solution is to turn the static web app into a reverse proxy web server that can take an address hidden within a different HTTP header (I've chosen Forwarded:) and proxy the information to the true destination, which can now be any location on the internet and not just those hosted in Azure.
 
 ### NGINX Reverse Proxy
 
-In order to keep this solution 100% free it has to be done using only Azure services available to a free account.  As of 4-2-2023 the only method of hosting an NGINX Reverse Proxy server in the Azure CDN for free is by pushing a Dockerhub hosted container image to Azure App Services.
+In order to keep this solution 100% free it has to be done using only Azure services available to a free account.  As of 4-2-2023 the only method of hosting an NGINX reverse proxy server in the Azure CDN for free is by pushing a Dockerhub hosted container image to Azure App Services.
 
 As of 4-2-23 this feature is in-operable and undergoing improvements.
 
