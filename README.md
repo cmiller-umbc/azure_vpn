@@ -26,9 +26,13 @@ The logical next step in this solution is to turn the static web app into a reve
 
 In order to keep this solution 100% free it has to be done using only Azure services available to a free account.  As of 4-2-2023 the only method of hosting an NGINX Reverse Proxy server in the Azure CDN for free is by pushing a Dockerhub hosted container image to Azure App Services.
 
+As of 4-2-23 this feature is in-operable and undergoing improvements.
+
 ### Azure_VPN.py
 
 This solution also requires a local python application to be running on the user machine.  The plan is to use the mitmproxy library to alter outgoing traffic in such a way that it is properly routed through the Azure CDN and our NGINX reverse proxy to the desired address, without any user interaction.  That requires intercepting requests at the web interface, placing the address or "true destination" from the HTTPS DNS and SNI headers into the HTTP Forwarded header, changing the HTTP Host header to the address of the NGINX reverse proxy, and changing the HTTP DNS and SNI headers to be one of the exposed Azure CDN edge servers (in this case I am going with security.microsoft.com because Microsoft blew me off and irony is fun).
+
+As of 4-2-23 this feature is in-operable and undergoing improvements.
 
 ### Installing
 
