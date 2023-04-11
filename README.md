@@ -38,9 +38,10 @@ As of 4-2-23 this feature is in-operable and undergoing improvements.
 
 git clone http://github.com/cmiller-umbc/azure_vpn/
 
-### Executing program
+### Container Build && Run
 
 docker build -t nginx-revprox .
+
 docker run --name nginx-revprox -p 80:80 -p 443:443 nginx-revprox
 
 ## Authors
