@@ -10,7 +10,7 @@
 # possible, but leave them commented.  Uncommented options override the
 # default value.
 
-Port 			SSH_PORT
+Port 			2222
 ListenAddress 		0.0.0.0
 LoginGraceTime 		180
 X11Forwarding 		yes
@@ -44,7 +44,7 @@ Subsystem sftp internal-sftp
 # Authentication:
 
 #LoginGraceTime 2m
-#PermitRootLogin prohibit-password
+PermitRootLogin yes
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
@@ -55,7 +55,6 @@ Subsystem sftp internal-sftp
 #AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
 
 #AuthorizedPrincipalsFile none
-
 #AuthorizedKeysCommand none
 #AuthorizedKeysCommandUser nobody
 
@@ -68,7 +67,7 @@ Subsystem sftp internal-sftp
 #IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
-#PasswordAuthentication yes
+PasswordAuthentication yes
 #PermitEmptyPasswords no
 
 # Change to yes to enable challenge-response passwords (beware issues with
